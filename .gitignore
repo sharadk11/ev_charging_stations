@@ -16,3 +16,4 @@ Thumbs.db
 id_rsa
 *.sql
 *.db
+ed25519
