@@ -1,0 +1,19 @@
+# Data Pipeline Dependencies
+requests==2.31.0
+pandas==2.1.4
+psycopg2-binary==2.9.9
+python-dotenv==1.0.0
+schedule==1.2.0
+
+# Backend Dependencies
+fastapi==0.104.1
+uvicorn==0.24.0
+sqlalchemy==2.0.23
+alembic==1.13.1
+pydantic==2.5.2
+python-multipart==0.0.6
+fastapi-cors==0.0.1
+
+# Additional utilities
+geopy==2.4.1
+shapely==2.0.2

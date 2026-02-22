@@ -1,0 +1,18 @@
+#python
+___psyche___/
+*.pyc
+*.pyo
+*.pyd
+# Virtual Environment
+env/
+env312/
+venv/
+# Environment Variables
+.env
+*.env
+# OS
+.DS_Store
+Thumbs.db
+id_rsa
+*.sql
+*.db
