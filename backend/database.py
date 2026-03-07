@@ -1,5 +1,6 @@
-from sqlalchemy import create_engine, Column, Integer, String, Text, Float
+from sqlalchemy import create_engine, Column, Integer, Text, Float, DateTime
 from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.sql import func
 from geoalchemy2 import Geography
 import os
 from dotenv import load_dotenv
@@ -7,6 +8,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL not set. Please configure your .env file.")
 
 engine = create_engine(
     DATABASE_URL,
@@ -24,7 +28,6 @@ Base = declarative_base()
 
 
 class ChargingStation(Base):
-
     __tablename__ = "ev_stations"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -49,16 +52,17 @@ class ChargingStation(Base):
 
     source = Column(Text)
 
+    created_at = Column(DateTime, server_default=func.now())
+
     location = Column(Geography("POINT", srid=4326))
 
+    def __repr__(self):
+        return f"<ChargingStation(id={self.id}, station_name={self.station_name})>"
 
 
 def get_db():
-
     db = SessionLocal()
-
     try:
         yield db
-
     finally:
         db.close()

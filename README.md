@@ -1,6 +1,22 @@
 # EV Charging Station Map
 
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.129.2-009688?logo=fastapi&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0.46-D71F00?logo=sqlalchemy&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-PostGIS-336791?logo=postgresql&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
+![PowerBI](https://img.shields.io/badge/PowerBI-Dashboard-F2C811?logo=powerbi&logoColor=black)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)
 A comprehensive end-to-end application for mapping and analyzing electric vehicle charging stations using data from OpenChargeMap and OpenStreetMap.
+
+## 🎯 Project Highlights
+
+- 10,000+ EV charging stations processed
+- Spatial queries powered by PostGIS
+- RESTful API with 15+ endpoints
+- Modular data pipeline architecture
+- Production-ready backend structure
 
 ## 🏗️ Architecture
 
@@ -17,6 +33,26 @@ Frontend App (React + Leaflet)
 ↓
 Dashboard (Power BI)
 ```
+🧪 Backend Quick Start (WSL / Linux)
+```
+# Clone
+git clone git@github.com:sharadk11/ev_charging_stations.git
+cd ev_charging_stations
+
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Configure environment
+cp .env.example .env
+
+# Start server
+uvicorn backend.main:app --reload
+```
+
 
 ## 🚀 Features
 
@@ -31,7 +67,7 @@ Dashboard (Power BI)
 ## 🛠️ Tech Stack
 
 ### Backend
-- **Python 3.8+** - Core language
+- **Python 3.10+** - Core language
 - **FastAPI** - REST API framework
 - **PostgreSQL + PostGIS** - Database with spatial extensions
 - **SQLAlchemy** - ORM
@@ -58,22 +94,29 @@ Dashboard (Power BI)
 ## 📦 Installation
 
 ### Prerequisites
-- Python 3.8+
+- Python 3.10+
 - Node.js 16+
 - PostgreSQL 12+ with PostGIS extension
 - Power BI Desktop (for dashboards)
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/yourusername/ev-charging-map.git
-cd ev-charging-map
+git clone git@github.com:sharadk11/ev_charging_stations.git
+cd ev_charging_stations
+
 ```
 
 ### 2. Database Setup
 ```bash
-# Install PostgreSQL and PostGIS
-# Create database and run initialization script
-psql -U postgres -f database/init.sql
+# Create database
+createdb ev_india
+
+# Enable PostGIS extension
+psql -U postgres -d ev_india -c "CREATE EXTENSION IF NOT EXISTS postgis;"
+
+# Run initialization script
+psql -U postgres -d ev_india -f database/init.sql
+
 ```
 
 ### 3. Backend Setup
@@ -82,6 +125,10 @@ psql -U postgres -f database/init.sql
 pip install -r requirements.txt
 
 # Copy environment file and configure
+# Linux / Mac
+cp .env.example .env
+
+# Windows
 copy .env.example .env
 # Edit .env with your database credentials and API keys
 
@@ -90,8 +137,7 @@ cd data-pipeline
 python data_collector.py
 
 # Start API server
-cd ../backend
-python main.py
+uvicorn backend.main:app --reload
 ```
 
 ### 4. Frontend Setup
@@ -114,7 +160,7 @@ python scheduler.py
 
 ### Environment Variables (.env)
 ```env
-DATABASE_URL=postgresql://username:password@localhost:5432/ev_charging_db
+DATABASE_URL=postgresql://username:password@localhost:5432/ev_india
 OPENCHARGE_API_KEY=your_api_key_here
 API_HOST=localhost
 API_PORT=8000

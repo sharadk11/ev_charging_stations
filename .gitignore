@@ -1,5 +1,6 @@
 #python
 ___psyche___/
+.vscode/
 *.pyc
 *.pyo
 *.pyd
@@ -17,3 +18,5 @@ id_rsa
 *.sql
 *.db
 ed25519
+*.pub
+*.pem

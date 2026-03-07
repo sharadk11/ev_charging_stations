@@ -1,6 +1,6 @@
 # Power BI Dashboard Setup
 
-This directory contains Power BI files for creating dashboards from the EV charging station data.
+This directory contains Power BI files for creating dashboards from the Databse ev_india and table ev_stations data.
 
 ## Files
 
@@ -15,13 +15,13 @@ This directory contains Power BI files for creating dashboards from the EV charg
 2. Click "Get Data" → "More" → "Database" → "PostgreSQL database"
 3. Enter your database connection details:
    - Server: `localhost` (or your PostgreSQL server)
-   - Database: `ev_charging_db`
+   - Database: `ev_india`
    - Data Connectivity mode: Import
 
 ### 2. Import Tables
 
 Import the following table:
-- `charging_stations` - Main stations data
+- `ev_stations` - Main stations data
 
 ### 3. Create Visualizations
 
@@ -76,14 +76,14 @@ To keep your dashboard updated:
 ## Sample DAX Measures
 
 ```dax
-Total Stations = COUNT(charging_stations[id])
+Total Stations = COUNT(ev_stations[id])
 
-Average Power = AVERAGE(charging_stations[power_kw])
+Average Power = AVERAGE(ev_stations[power_kw])
 
 Operational Stations = 
 CALCULATE(
-    COUNT(charging_stations[id]),
-    charging_stations[status] IN {"Operational", "Available"}
+    COUNT(ev_stations[id]),
+    ev_stations[status] IN {"Operational", "Available"}
 )
 
 Operational Percentage = 
